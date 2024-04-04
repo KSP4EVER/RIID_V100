@@ -82,6 +82,26 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=BNJPJEKH
 
+[Parameter1]
+Name=GContact
+Value=szabomihaly2000@gmail.com
+
+[Parameter2]
+Name=GAuthor
+Value=Mihaly Szabo (PHY1HI)
+
+[Parameter3]
+Name=GBoardName
+Value=DetectorBoard
+
+[Parameter4]
+Name=GVersion
+Value=V100
+
+[Parameter5]
+Name=GProjectName
+Value=RIID
+
 [Configuration1]
 Name=Sources
 ParameterCount=0

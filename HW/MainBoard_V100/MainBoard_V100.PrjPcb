@@ -1628,8 +1628,10 @@ Net209=NetName=USB_CHARGER_D_P|NetColor=$00FF6E6E
 Net210=NetName=USB_CON_D_N|NetColor=$00FF6E6E
 Net211=NetName=USB_CON_D_P|NetColor=$00FF6E6E
 Net212=NetName=USB_MCU_D-|NetColor=$00FF6E6E
-Net213=NetName=USB_MCU_D+|NetColor=$00FF6E6E
-Net214=NetName=VREGN|NetColor=$006E6EFF
+Net213=NetName=USB_MCU_D_N|NetColor=$00FF6E6E
+Net214=NetName=USB_MCU_D_P|NetColor=$00FF6E6E
+Net215=NetName=USB_MCU_D+|NetColor=$00FF6E6E
+Net216=NetName=VREGN|NetColor=$006E6EFF
 
 [Comparison Options]
 ComparisonOptions0=Kind=Net|MinPercent=75|MinMatch=3|ShowMatch=0|UseName=-1|InclAllRules=0
