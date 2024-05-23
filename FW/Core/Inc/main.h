@@ -85,6 +85,8 @@ void Error_Handler(void);
 #define ON_OFF_INT_GPIO_Port GPIOD
 #define BUTTON_4_Pin GPIO_PIN_3
 #define BUTTON_4_GPIO_Port GPIOB
+#define USB_IN_SEL_Pin GPIO_PIN_5
+#define USB_IN_SEL_GPIO_Port GPIOB
 #define BLE_RST_Pin GPIO_PIN_9
 #define BLE_RST_GPIO_Port GPIOB
 
