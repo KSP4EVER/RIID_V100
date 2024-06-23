@@ -55,7 +55,7 @@ AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=-1
+AnnotateOrder=0
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -83,24 +83,24 @@ GenerateClassCluster=0
 DocumentUniqueId=BNJPJEKH
 
 [Parameter1]
-Name=GContact
-Value=szabomihaly2000@gmail.com
-
-[Parameter2]
 Name=GAuthor
 Value=Mihaly Szabo (PHY1HI)
 
-[Parameter3]
+[Parameter2]
 Name=GBoardName
 Value=DetectorBoard
 
-[Parameter4]
-Name=GVersion
-Value=V100
+[Parameter3]
+Name=GContact
+Value=szabomihaly2000@gmail.com
 
-[Parameter5]
+[Parameter4]
 Name=GProjectName
 Value=RIID
+
+[Parameter5]
+Name=GVersion
+Value=V100
 
 [Configuration1]
 Name=Sources
