@@ -67,10 +67,14 @@ void Error_Handler(void);
 #define BUTTON_0_GPIO_Port GPIOE
 #define V_DET_TOOGLE_Pin GPIO_PIN_6
 #define V_DET_TOOGLE_GPIO_Port GPIOE
+#define STAT_LED_Pin GPIO_PIN_13
+#define STAT_LED_GPIO_Port GPIOC
 #define TRESHHOLD_IRQ_Pin GPIO_PIN_0
 #define TRESHHOLD_IRQ_GPIO_Port GPIOA
 #define PEAK_DET_RST_Pin GPIO_PIN_2
 #define PEAK_DET_RST_GPIO_Port GPIOA
+#define SD_nCS_Pin GPIO_PIN_6
+#define SD_nCS_GPIO_Port GPIOA
 #define BUTTON_7_Pin GPIO_PIN_0
 #define BUTTON_7_GPIO_Port GPIOB
 #define BUTTON_6_Pin GPIO_PIN_1
@@ -85,6 +89,8 @@ void Error_Handler(void);
 #define ON_OFF_INT_GPIO_Port GPIOD
 #define BUTTON_4_Pin GPIO_PIN_3
 #define BUTTON_4_GPIO_Port GPIOB
+#define CHARGE_DETECT_Pin GPIO_PIN_4
+#define CHARGE_DETECT_GPIO_Port GPIOB
 #define USB_IN_SEL_Pin GPIO_PIN_5
 #define USB_IN_SEL_GPIO_Port GPIOB
 #define BLE_RST_Pin GPIO_PIN_9

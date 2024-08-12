@@ -17,13 +17,13 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
-#include "app_threadx.h"
 #include "main.h"
 #include "adc.h"
 #include "crc.h"
 #include "dac.h"
 #include "dcache.h"
 #include "dma2d.h"
+#include "fmac.h"
 #include "i2c.h"
 #include "icache.h"
 #include "memorymap.h"
@@ -35,7 +35,6 @@
 #include "usb_otg.h"
 #include "gpio.h"
 #include "fmc.h"
-#include "app_touchgfx.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -81,6 +80,7 @@ static void SystemPower_Config(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -106,7 +106,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_DAC1_Init();
   MX_DCACHE1_Init();
   MX_DMA2D_Init();
   MX_FMC_Init();
@@ -114,7 +113,6 @@ int main(void)
   MX_ICACHE_Init();
   MX_RAMCFG_Init();
   MX_SDMMC1_SD_Init();
-  MX_SPI1_Init();
   MX_USART1_UART_Init();
   MX_USART3_UART_Init();
   MX_USB_OTG_FS_PCD_Init();
@@ -125,15 +123,12 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   MX_TIM8_Init();
-  /* Call PreOsInit function */
-  MX_TouchGFX_PreOSInit();
+  MX_DAC1_Init();
+  MX_FMAC_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
-  MX_ThreadX_Init();
-
-  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
