@@ -13,12 +13,15 @@ title("Felvett áram a bementi feszültség függvényében T = 25°C");
 
 figure();
 
-T = -5:5:60;
-i = [15.5 23 21.7 20.35 19.7 18.7 18 17.2 16.6 17.6 20.5 22 20 19];
+T = -10:5:60;
+i = [15.2 15.5 23 21.7 20.35 19.7 18.7 18 17.2 16.6 17.6 20.5 22 20 19];
 
-plot(T,i,T,movmean(i,10),'-k','LineWidth',2);
+
+plot(T,movmean(i,3),'-k','LineWidth',2);
 grid on;
 grid minor;
-
+xlabel("Hőmérséklet [°C]");
+ylabel("Felvett áram [uA]");
+title("Felvett áram a külső hőmérséklet függvényében Vin = 7.8V");
 ylim([0 30]);
 yticks([0 5 10 15 20 25 30]);
