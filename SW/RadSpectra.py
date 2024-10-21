@@ -1,14 +1,12 @@
 import serial
 import sys
 import matplotlib.pyplot as plt
-import numpy as np
 import re
-import random
 import threading
 import time
 import serial.tools.list_ports
 import os
-
+import subprocess
 
 buffer_size = 4096  # Number of data points to collect
 data_buffer = [0]*buffer_size # data buffer to store the data from the device
@@ -223,4 +221,5 @@ def main():
 #---------------------------------------------------------------------------    
 
 if __name__ == "__main__":
+
     main()
