@@ -137,7 +137,26 @@ def save_data_periodiccaly(name,period):
 
 #main loop---------------------------------------------------------------------
 def main():
+    opening_text = """
+    ================================
+          Gamma Spectrum Analyzer
+    ================================
+    
+    Welcome to RadSpectra!
+    
+    This application allows you to analyze gamma spectra
+    collected from Radioisotope Identifier Device.
 
+    How to use:
+    1. Connect Radioisotope Identifier Device via USB to the PC.
+    2. Select the COM port.
+    3. Save and visualize the collected spectrum data.
+    
+    Press 'Enter' to continue...
+    """
+    print(opening_text)
+    input()
+    
     try:
         #create a thread for the serial connection handling
         thread_serial = threading.Thread(target=SerialCom)
