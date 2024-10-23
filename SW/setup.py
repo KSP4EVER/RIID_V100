@@ -19,8 +19,7 @@ def check_and_install_modules(modules):
 if __name__ == "__main__":
     # List of required modules
     print("Checking for all required modules...")
-    required_modules = ['matplotlib','serial','pyserial']  # Add your required modules here
-
+    required_modules = ['matplotlib','serial']  
     check_and_install_modules(required_modules)
 
     print("All required modules are checked and installed.")
