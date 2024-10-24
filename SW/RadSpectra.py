@@ -16,7 +16,6 @@ data_lock = threading.Lock()
 stop_event = threading.Event()
 data_ready_event = threading.Event()
 
-
 # graph updater function ---------------------------------------
 def updatePlot():
     global buffer_size
@@ -44,7 +43,6 @@ def updatePlot():
 
         plt.draw()                
         plt.pause(1)  
-
 #--------------------------------------------------------------------------------
 
 # com port handler---------------------------------------------------------------
@@ -107,7 +105,6 @@ def SerialCom():
         if 'ser' in locals() and ser.is_open:
             ser.close()
             print("Serial connection closed.")
-
 #-------------------------------------------------------------------------------
 
 #saves the buffer data in every period------------------------------------------
@@ -129,8 +126,7 @@ def save_data_periodiccaly(name,period):
                     file.write(f'{channel_num}:{value}\n')
             print(f"Data saved to: {file_name}")
         else:
-            ticks_to_save = ticks_to_save - 1
-        
+            ticks_to_save = ticks_to_save - 1       
 #------------------------------------------------------------------------------
 
 #main loop---------------------------------------------------------------------
