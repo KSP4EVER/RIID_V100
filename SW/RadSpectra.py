@@ -9,6 +9,7 @@ import os
 import subprocess
 
 buffer_size = 4096  # Number of data points to collect
+ 
 data_buffer = [0]*buffer_size # data buffer to store the data from the device
 
 # locking objects
@@ -50,7 +51,8 @@ def SerialCom():
     # Configure the serial connection parameters
     global buffer_size
     global data_buffer
-
+    
+    prev_sum = 0    #variable to track the delta counts between two packets
     #list the available COM ports------------------------------------------------
     ports = serial.tools.list_ports.comports()
     if not ports:
@@ -88,7 +90,8 @@ def SerialCom():
                     if  index == buffer_size-1 :
                         local_time = time.localtime()
                         formatted_time = time.strftime("%H:%M:%S", local_time)
-                        print(f"[{formatted_time}] Received {index + 1} packets...")
+                        print(f"[{formatted_time}] Received {index + 1} packets...   Delta Counts= {sum(data_buffer)-prev_sum}")
+                        prev_sum = sum(data_buffer)
                         data_ready_event.set()
 
                 except ValueError:
