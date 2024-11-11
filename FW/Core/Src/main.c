@@ -108,7 +108,7 @@ int main(void)
   MX_SDMMC1_SD_Init();
   MX_USB_OTG_FS_PCD_Init();
   MX_USART1_UART_Init();
- // MX_FileX_Init();
+  MX_FileX_Init();
   MX_USBX_Device_Init();
   MX_ADC4_Init();
   MX_TIM8_Init();
@@ -122,7 +122,7 @@ int main(void)
   ui_controller_init();
   unsigned int cntr = 0;
   /* USER CODE END 2 */
-
+  MX_FileX_Process();
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)

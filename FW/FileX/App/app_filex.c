@@ -93,7 +93,7 @@ VOID MX_FileX_Process(void)
   CHAR data[] = "This is FileX working on STM32";
 
   /* Create a file called STM32.TXT in the root directory.  */
-  status =  fx_file_create(&sdio_disk, "STM32asd.TXT");
+  status =  fx_file_create(&sdio_disk, "STM32.TXT");
 
   /* Check the create status.  */
   if (status != FX_SUCCESS)

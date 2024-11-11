@@ -247,7 +247,7 @@ vary depending on the variations in voltage and temperature.*/
 
 /* ################## SDMMC peripheral configuration ######################### */
 
-#define USE_SD_TRANSCEIVER            0U
+#define USE_SD_TRANSCEIVER            1U
 
 /* Includes ------------------------------------------------------------------*/
 /**
