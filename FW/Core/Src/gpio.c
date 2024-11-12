@@ -99,8 +99,10 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(PEAK_DET_RST_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PBPin PBPin PBPin PBPin */
-  GPIO_InitStruct.Pin = BUTTON_7_Pin|BUTTON_6_Pin|BUTTON_5_Pin|BUTTON_4_Pin;
+  /*Configure GPIO pins : PBPin PBPin PBPin PBPin
+                           PBPin */
+  GPIO_InitStruct.Pin = BUTTON_7_Pin|BUTTON_6_Pin|BUTTON_5_Pin|BUTTON_4_Pin
+                          |CHARGE_DETECTION_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
@@ -124,12 +126,6 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(ON_OFF_INT_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
-  GPIO_InitStruct.Pin = CHARGE_DETECTION_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(CHARGE_DETECTION_GPIO_Port, &GPIO_InitStruct);
-
   /*Configure GPIO pins : PBPin PBPin PBPin */
   GPIO_InitStruct.Pin = USB_SEL_Pin|LCD_RESET_Pin|BLE_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -140,9 +136,6 @@ void MX_GPIO_Init(void)
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
-  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 
   HAL_NVIC_SetPriority(EXTI6_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI6_IRQn);

@@ -43,7 +43,7 @@ enum ui_states{
 	SCREEN5
 };
 
-static struct _ui_data{
+struct _ui_data{
 	uint8_t charge_lvl; //0-100
 	uint8_t charging;  //0 = not charging 1 = charging
 	char time[5];
@@ -54,7 +54,7 @@ static struct _ui_data{
 	uint16_t detector_voltage;  //det voltage in mV
 	uint8_t brightness;	//0-100
 	uint8_t volume;		//0-100
-} ui_data;
+};
 
 extern TIM_HandleTypeDef htim3;
 

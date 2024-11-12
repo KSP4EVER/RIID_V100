@@ -38,6 +38,7 @@
 #include "LCD_Controller.h"
 #include "ui.h"
 #include "ui_controller.h"
+#include "bsp.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,7 +59,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+extern struct _ui_data ui_data;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -96,7 +97,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  HAL_PWREx_EnableVddA();
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -122,7 +123,7 @@ int main(void)
   ui_controller_init();
   unsigned int cntr = 0;
   /* USER CODE END 2 */
-  MX_FileX_Process();
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -135,6 +136,9 @@ int main(void)
 	  lv_timer_handler();
 	  cntr++;
 	  if (cntr%100 == 0){
+		  uint8_t a =  CalculateSOC();
+		ui_data.charge_lvl = a;
+		ui_data.charging = IsCharging();
 		Select_Screen();
 		UpdateScreen();
 		UpdateData();

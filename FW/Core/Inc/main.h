@@ -93,7 +93,6 @@ void Error_Handler(void);
 #define BUTTON_4_GPIO_Port GPIOB
 #define CHARGE_DETECTION_Pin GPIO_PIN_4
 #define CHARGE_DETECTION_GPIO_Port GPIOB
-#define CHARGE_DETECTION_EXTI_IRQn EXTI4_IRQn
 #define USB_SEL_Pin GPIO_PIN_5
 #define USB_SEL_GPIO_Port GPIOB
 #define LCD_RESET_Pin GPIO_PIN_8

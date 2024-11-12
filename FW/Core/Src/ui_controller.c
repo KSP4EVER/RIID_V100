@@ -6,6 +6,8 @@
  */
 #include "ui_controller.h"
 
+struct _ui_data ui_data;
+
 void Scan_Button_input(void){
 
 }
@@ -138,10 +140,10 @@ void Select_Screen(void){
 	////////////////////////////////////////////////////////
 	//screen5 states
 	case SCREEN5:
-		if(input_state = LEFT_BTN_CLICKED){
+		if(input_state == LEFT_BTN_CLICKED){
 			current_ui_state = SCREEN4;
 		}
-		if(input_state = RIGHT_BTN_CLICKED){
+		if(input_state == RIGHT_BTN_CLICKED){
 			current_ui_state = SCREEN2;
 		}
 		break;
@@ -265,6 +267,8 @@ void ui_controller_init(){
 	ui_data.cps = 0;
 	ui_data.detector_voltage = 26500;
 	ui_data.dose = 0.0;
+	ui_data.charge_lvl = 0;
+	ui_data.charging = 0;
 
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 	htim3.Instance->CCR2 = ui_data.brightness;
