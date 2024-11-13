@@ -16,7 +16,13 @@
 #define AD_12BIT_RES 4096
 #define CELL_VOLTAGE_DIVIDER 0.393
 
+#define AREF 3300
+#define GAIN 11
+#define GAIN_COMP 1.0
+#define OFFSET 100
+
 extern ADC_HandleTypeDef hadc4;
+extern DAC_HandleTypeDef hdac1;
 
 
 
@@ -25,5 +31,6 @@ double Find_Capacity(double);
 uint8_t CalculateSOC(void);
 uint8_t IsCharging(void);
 
+void SetDetectorVoltage(uint16_t);
 
 #endif /* INC_BSP_H_ */

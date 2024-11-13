@@ -64,7 +64,10 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LCD_TE_GPIO_Port, LCD_TE_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, USB_SEL_Pin|LCD_RESET_Pin|BLE_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(USB_SEL_GPIO_Port, USB_SEL_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, LCD_RESET_Pin|BLE_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PEPin PEPin PEPin PEPin */
   GPIO_InitStruct.Pin = BUTTON_3_Pin|BUTTON_2_Pin|BUTTON_1_Pin|BUTTON_0_Pin;

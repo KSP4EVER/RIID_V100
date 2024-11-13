@@ -86,3 +86,9 @@ uint8_t IsCharging(void){
 	//charging
 	else return 1;
 }
+
+void SetDetectorVoltage(uint16_t det_voltage_mv){
+	uint16_t xref =  (det_voltage_mv+OFFSET)*AD_12BIT_RES/(GAIN*GAIN_COMP*AREF);
+	HAL_DAC_Start(&hdac1, DAC_CHANNEL_1);
+	HAL_DAC_SetValue(&hdac1, DAC_CHANNEL_1,DAC_ALIGN_12B_R,xref);
+}

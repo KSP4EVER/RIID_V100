@@ -39,6 +39,8 @@
 #include "ui.h"
 #include "ui_controller.h"
 #include "bsp.h"
+
+#include "ux_device_cdc_acm.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,6 +62,11 @@
 
 /* USER CODE BEGIN PV */
 extern struct _ui_data ui_data;
+
+extern uint8_t UserTxBufferFS[2048];
+
+extern uint32_t UserTxBufPtrIn;
+extern uint32_t UserTxBufPtrOut;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -128,6 +135,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  MX_USBX_Device_Process(NULL);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -139,10 +147,12 @@ int main(void)
 		  uint8_t a =  CalculateSOC();
 		ui_data.charge_lvl = a;
 		ui_data.charging = IsCharging();
+		SetDetectorVoltage(ui_data.detector_voltage);
 		Select_Screen();
 		UpdateScreen();
 		UpdateData();
 	  }
+
 
 
   }
