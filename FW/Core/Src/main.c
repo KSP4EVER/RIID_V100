@@ -39,6 +39,8 @@
 #include "ui.h"
 #include "ui_controller.h"
 #include "bsp.h"
+#include "application.h"
+#include "communication.h"
 
 #include "ux_device_cdc_acm.h"
 /* USER CODE END Includes */
@@ -63,10 +65,9 @@
 /* USER CODE BEGIN PV */
 extern struct _ui_data ui_data;
 
-extern uint8_t UserTxBufferFS[2048];
+extern uint16_t spectrum[SPECTRUM_SIZE];
 
-extern uint32_t UserTxBufPtrIn;
-extern uint32_t UserTxBufPtrOut;
+volatile uint32_t com_port_send_msg_interval = SEND_MSG_INTERVAL_MS;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -129,6 +130,7 @@ int main(void)
   ui_init();
   ui_controller_init();
   unsigned int cntr = 0;
+  uint16_t height = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -140,7 +142,16 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	 // lv_task_handler();
-	  HAL_Delay(5);
+	  if (com_port_send_msg_interval == 0){
+		  com_port_send_msg_interval = SEND_MSG_INTERVAL_MS;
+
+		  height = height + 50;
+		  generate_spectrum(spectrum,height);
+
+		  uint16_t size = PrintToBuffer(spectrum,SPECTRUM_SIZE);
+		  StartVCPTransmission(size);
+	  }
+
 	  lv_timer_handler();
 	  cntr++;
 	  if (cntr%100 == 0){

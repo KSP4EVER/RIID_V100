@@ -222,7 +222,7 @@
               {
                 "nid": -154450982,
                 "strtype": "IMAGE/Asset",
-                "strval": "",
+                "strval": "assets/atom.png",
                 "InheritedType": 5
               },
               {
@@ -296,8 +296,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  1,
-                  8
+                  0,
+                  41
                 ],
                 "InheritedType": 7
               },
@@ -366,7 +366,22 @@
               },
               {
                 "part": "lv.PART.MAIN",
-                "childs": [],
+                "childs": [
+                  {
+                    "nid": 10000,
+                    "strtype": "_style/StyleState",
+                    "strval": "DEFAULT",
+                    "childs": [
+                      {
+                        "nid": 10430,
+                        "strtype": "_style/Text_Align",
+                        "strval": "CENTER",
+                        "InheritedType": 3
+                      }
+                    ],
+                    "InheritedType": 1
+                  }
+                ],
                 "nid": 996883439,
                 "strtype": "LABEL/Style_main",
                 "strval": "lv.PART.MAIN, Text, Rectangle, Pad, Transform",
@@ -468,7 +483,27 @@
           },
           {
             "part": "lv.PART.SCROLLBAR",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": 159736574,
             "strtype": "SCREEN/Style_scrollbar",
             "strval": "lv.PART.SCROLLBAR, Rectangle, Pad",
@@ -2394,7 +2429,27 @@
           },
           {
             "part": "lv.PART.SCROLLBAR",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": -419503791,
             "strtype": "SCREEN/Style_scrollbar",
             "strval": "lv.PART.SCROLLBAR, Rectangle, Pad",
@@ -2523,8 +2578,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  4,
-                  -38
+                  16,
+                  -46
                 ],
                 "InheritedType": 7
               },
@@ -2533,8 +2588,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Size",
                 "intarray": [
-                  200,
-                  132
+                  186,
+                  151
                 ],
                 "InheritedType": 7
               },
@@ -2582,7 +2637,7 @@
               {
                 "nid": -51496035,
                 "strtype": "CHART/Number_of_points",
-                "integer": 10,
+                "integer": 180,
                 "InheritedType": 6
               },
               {
@@ -2720,7 +2775,7 @@
               {
                 "nid": -1757974313,
                 "strtype": "CHART/Labels_on_Secondary_Y_axis",
-                "strval": "True",
+                "strval": "False",
                 "InheritedType": 2
               },
               {
@@ -2737,7 +2792,7 @@
               {
                 "nid": 1608839244,
                 "strtype": "CHART/ChartData",
-                "strval": "[{\"Axis\":0,\"Color\":[128,128,128,255],\"Series\":[0,10,20,40,80,80,40,20,10,0]}]",
+                "strval": "[{\"Axis\":0,\"Color\":[255,0,0,255],\"Series\":[0,10,20,40,80,80,40,20,10,0]}]",
                 "InheritedType": 12
               },
               {
@@ -3418,7 +3473,27 @@
           },
           {
             "part": "lv.PART.SCROLLBAR",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": 551926545,
             "strtype": "SCREEN/Style_scrollbar",
             "strval": "lv.PART.SCROLLBAR, Rectangle, Pad",
@@ -4511,7 +4586,27 @@
           },
           {
             "part": "lv.PART.SCROLLBAR",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": 1899246992,
             "strtype": "SCREEN/Style_scrollbar",
             "strval": "lv.PART.SCROLLBAR, Rectangle, Pad",
@@ -4861,7 +4956,27 @@
           },
           {
             "part": "lv.PART.SCROLLBAR",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": 1538206058,
             "strtype": "SCREEN/Style_scrollbar",
             "strval": "lv.PART.SCROLLBAR, Rectangle, Pad",

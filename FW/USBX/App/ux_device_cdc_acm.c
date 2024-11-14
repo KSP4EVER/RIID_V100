@@ -35,7 +35,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define APP_RX_DATA_SIZE                          2048
-#define APP_TX_DATA_SIZE                          2048
+#define APP_TX_DATA_SIZE                          48*1024
 
 /* Rx/TX flag */
 #define RX_NEW_RECEIVED_DATA                      0x01
@@ -85,7 +85,6 @@ uint32_t UserTxBufPtrIn;
 start address when data are sent over USB */
 uint32_t UserTxBufPtrOut;
 
-/* uart3 handler */
 extern UART_HandleTypeDef huart3;
 
 UX_SLAVE_CLASS_CDC_ACM_LINE_CODING_PARAMETER CDC_VCP_LineCoding =
@@ -274,6 +273,9 @@ VOID CDC_ACM_Control(VOID *cdc_acm)
       break;
   }
 }
+VOID Start_Transmit(VOID){
+	EventFlag = RX_NEW_RECEIVED_DATA;
+}
 
 VOID CDC_ACM_Read_Task(VOID)
 {
@@ -362,148 +364,99 @@ VOID CDC_ACM_Read_Task(VOID)
 
 VOID CDC_ACM_Write_Task(VOID)
 {
-  UX_SLAVE_DEVICE    *device;
-  UX_SLAVE_INTERFACE *data_interface;
-  UX_SLAVE_CLASS_CDC_ACM *cdc_acm;
-  ULONG actual_length;
-  ULONG buffptr;
-  ULONG buffsize;
-  UINT ux_status = UX_SUCCESS;
+	  UX_SLAVE_DEVICE    *device;
+	  UX_SLAVE_INTERFACE *data_interface;
+	  UX_SLAVE_CLASS_CDC_ACM *cdc_acm;
+	  ULONG actual_length;
+	  ULONG buffptr;
+	  ULONG buffsize;
+	  UINT ux_status = UX_SUCCESS;
 
-  /* Get device */
-  device = &_ux_system_slave->ux_system_slave_device;
+	  /* Get device */
+	  device = &_ux_system_slave->ux_system_slave_device;
 
-  /* Check if device is configured */
-  if (device->ux_slave_device_state != UX_DEVICE_CONFIGURED)
-  {
-    read_state = UX_STATE_RESET;
-    return;
-  }
+	  /* Check if device is configured */
+	  if (device->ux_slave_device_state != UX_DEVICE_CONFIGURED)
+	  {
+	    read_state = UX_STATE_RESET;
+	    return;
+	  }
 
-  /* Get Data interface */
-  data_interface = device->ux_slave_device_first_interface->ux_slave_interface_next_interface;
-  cdc_acm =  data_interface->ux_slave_interface_class_instance;
+	  /* Get Data interface */
+	  data_interface = device->ux_slave_device_first_interface->ux_slave_interface_next_interface;
+	  cdc_acm =  data_interface->ux_slave_interface_class_instance;
 
-  ux_device_class_cdc_acm_write_run(cdc_acm,(UCHAR *)(&UserTxBufferFS[UserTxBufPtrOut]),UserTxBufPtrIn - UserTxBufPtrOut, &actual_length);
-/*
-  switch(write_state)
-  {
-    case UX_STATE_RESET:
-      if (EventFlag & RX_NEW_RECEIVED_DATA)
-      {
-        EventFlag &= ~RX_NEW_RECEIVED_DATA;
-        // Check if there is a new data to send
-        if (UserTxBufPtrOut != UserTxBufPtrIn)
-        {
-          // Check buffer overflow and Rollback
-          if (UserTxBufPtrOut > UserTxBufPtrIn)
-          {
-            buffsize = APP_RX_DATA_SIZE - UserTxBufPtrOut;
-          }
-          else
-          {
-            // Calculate data size
-            buffsize = UserTxBufPtrIn - UserTxBufPtrOut;
-          }
+	  switch(write_state)
+	  {
+	    case UX_STATE_RESET:
+	      if (EventFlag & RX_NEW_RECEIVED_DATA)
+	      {
+	        EventFlag &= ~RX_NEW_RECEIVED_DATA;
+	        /* Check if there is a new data to send */
+	        if (UserTxBufPtrOut != UserTxBufPtrIn)
+	        {
+	          /* Check buffer overflow and Rollback */
+	          if (UserTxBufPtrOut > UserTxBufPtrIn)
+	          {
+	            buffsize = APP_RX_DATA_SIZE - UserTxBufPtrOut;
+	          }
+	          else
+	          {
+	            /* Calculate data size */
+	            buffsize = UserTxBufPtrIn - UserTxBufPtrOut;
+	          }
 
-          // Copy UserTxBufPtrOut in buffptr
-          buffptr = UserTxBufPtrOut;
+	          /* Copy UserTxBufPtrOut in buffptr */
+	          buffptr = UserTxBufPtrOut;
 
-          // Send data over the class cdc_acm_write
-          ux_status = ux_device_class_cdc_acm_write_run(cdc_acm,
-                                                        (UCHAR *)(&UserTxBufferFS[buffptr]),
-                                                        buffsize, &actual_length);
-          if (ux_status != UX_STATE_WAIT)
-          {
-            // Reset state.
-            read_state = UX_STATE_RESET;
-            return;
-          }
-          write_state = UX_STATE_WAIT;
-          return;
-        }
-        return;
-      }
-      return;
+	          /* Send data over the class cdc_acm_write */
+	          ux_status = ux_device_class_cdc_acm_write_run(cdc_acm,
+	                                                        (UCHAR *)(&UserTxBufferFS[buffptr]),
+	                                                        buffsize, &actual_length);
+	          if (ux_status != UX_STATE_WAIT)
+	          {
+	            /* Reset state.  */
+	            read_state = UX_STATE_RESET;
+	            return;
+	          }
+	          write_state = UX_STATE_WAIT;
+	          return;
+	        }
+	        return;
+	      }
+	      return;
 
-    case UX_STATE_WAIT:
-      // Continue to run state machine.
-      ux_status = ux_device_class_cdc_acm_write_run(cdc_acm, UX_NULL, 0, &actual_length);
-      // Check if there is  fatal error.
-      if (ux_status < UX_STATE_IDLE)
-      {
-        // Reset state.
-        read_state = UX_STATE_RESET;
-        return;
-      }
-      // Check if dataset is transmitted
-      if (ux_status <= UX_STATE_NEXT)
-      {
-        // Increment the UserTxBufPtrOut pointer
-        UserTxBufPtrOut += actual_length;
+	    case UX_STATE_WAIT:
+	      /* Continue to run state machine.  */
+	      ux_status = ux_device_class_cdc_acm_write_run(cdc_acm, UX_NULL, 0, &actual_length);
+	      /* Check if there is  fatal error.  */
+	      if (ux_status < UX_STATE_IDLE)
+	      {
+	        /* Reset state.  */
+	        read_state = UX_STATE_RESET;
+	        return;
+	      }
+	      /* Check if dataset is transmitted */
+	      if (ux_status <= UX_STATE_NEXT)
+	      {
+	        /* Increment the UserTxBufPtrOut pointer */
+	        UserTxBufPtrOut += actual_length;
 
-        // Rollback UserTxBufPtrOut if it equal to APP_TX_DATA_SIZE
-        if (UserTxBufPtrOut == APP_TX_DATA_SIZE)
-        {
-          UserTxBufPtrOut = 0;
-        }
-        write_state = UX_STATE_RESET;
-      }
-      // Keep waiting.
-      return;
-    default:
-      return;
-  }
-*/
+	        /* Rollback UserTxBufPtrOut if it equal to APP_TX_DATA_SIZE */
+	        if (UserTxBufPtrOut > UserTxBufPtrIn)
+	        {
+	          UserTxBufPtrOut = 0;
+	        }
+	        write_state = UX_STATE_RESET;
+	      }
+	      /* Keep waiting.  */
+	      return;
+	    default:
+	      return;
+	  }
 }
 
-/**
-  * @brief Tx Transfer completed callback.
-  * @param huart UART handle.
-  * @retval None
-  */
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
-{
-  EventFlag |= TX_NEW_TRANSMITTED_DATA;
-}
 
-/**
-  * @brief  Rx Transfer completed callback
-  * @param  huart: UART handle
-  * @retval None
-  */
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-
-  EventFlag |= RX_NEW_RECEIVED_DATA;
-
-    /* Increment the UserTxBufPtrIn pointer */
-  UserTxBufPtrIn++;
-
-  /* Rollback the UserTxBufPtrIn if it equal to APP_TX_DATA_SIZE */
-  if (UserTxBufPtrIn == APP_TX_DATA_SIZE)
-  {
-    UserTxBufPtrIn = 0;
-  }
-
-  /* Start another reception: provide the buffer pointer with offset and the buffer size */
-  if (HAL_UART_Receive_IT(&huart3, (uint8_t *)UserTxBufferFS + UserTxBufPtrIn, 1) != HAL_OK)
-  {
-    /* Transfer error in reception process */
-    Error_Handler();
-  }
-}
-
-/**
-  * @brief  UART error callbacks
-  * @param  UartHandle: UART handle
-  * @retval None
-  */
-void HAL_UART_ErrorCallback(UART_HandleTypeDef *UartHandle)
-{
-  /* Transfer error occurred in reception and/or transmission process */
-  Error_Handler();
-}
 
 /**
   * @brief  USBD_CDC_VCP_Config
@@ -616,7 +569,6 @@ static void USBD_CDC_VCP_Config(UX_SLAVE_CLASS_CDC_ACM_LINE_CODING_PARAMETER
   }
 
   /* Start reception: provide the buffer pointer with offset and the buffer size */
-  HAL_UART_Receive_IT(&huart3, (uint8_t *)(UserTxBufferFS + UserTxBufPtrIn), 1);
 }
 
 /* USER CODE END 0 */

@@ -58,7 +58,7 @@
 extern SD_HandleTypeDef hsd1;
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 /* USER CODE BEGIN EV */
-
+extern volatile uint32_t com_port_send_msg_interval;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -192,6 +192,11 @@ void SysTick_Handler(void)
   if (HAL_GetTick() % 1000 == 0){
 	  HAL_GPIO_TogglePin(STAT_LED_GPIO_Port,STAT_LED_Pin);
   }
+
+  if(com_port_send_msg_interval > 0){
+	  com_port_send_msg_interval--;
+  }
+
   /* USER CODE END SysTick_IRQn 1 */
 }
 

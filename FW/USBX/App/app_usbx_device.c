@@ -318,7 +318,7 @@ VOID MX_USBX_Device_Process(VOID *arg)
 {
   ux_device_stack_tasks_run();
   //CDC_ACM_Read_Task();
-  //CDC_ACM_Write_Task();
+  CDC_ACM_Write_Task();
 
 }
 /* USER CODE END 1 */
