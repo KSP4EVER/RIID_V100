@@ -67,6 +67,7 @@ def SerialCom():
     com_port = input("Enter the COM port (e.g., COM3 or /dev/ttyUSB0): ")
     baud_rate = 115200  
     ser = serial.Serial(com_port, baud_rate, timeout=1)
+    ser.set_buffer_size(rx_size = 50000, tx_size = 12800)
     print(f"Opened {com_port} successfully.")
     #----------------------------------------------------------------------------
 
@@ -84,7 +85,8 @@ def SerialCom():
  
                     index = int(re.findall(r'\d+\.?\d*', index_s)[0])
                     value = int(re.findall(r'\d+\.?\d*', value_s)[0])
-                    data_buffer[index] = value
+                    if(index < buffer_size):
+                        data_buffer[index] = value
                     
                     #if all packets are received signal to update the graph and to the CLI
                     if  index == buffer_size-1 :
