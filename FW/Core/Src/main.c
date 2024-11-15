@@ -78,7 +78,32 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void delay_us (uint16_t us)
+{
+	__HAL_TIM_SET_COUNTER(&htim7,0);  // set the counter value a 0
+	while (__HAL_TIM_GET_COUNTER(&htim7) < us);  // wait for the counter to reach the us input in the parameter
+}
+void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
+{
+	//HAL_GPIO_TogglePin(DEBUG_1_GPIO_Port,DEBUG_1_Pin);
+	delay_us(1);
+	HAL_ADC_Start(&hadc1);
+	HAL_ADC_PollForConversion(&hadc1,5);
+	uint32_t DET_VALUE = HAL_ADC_GetValue(&hadc1);
+	HAL_GPIO_WritePin(PEAK_DET_RST_GPIO_Port, PEAK_DET_RST_Pin,1);
+	spectrum[DET_VALUE]++;
+	delay_us(1);
+	HAL_GPIO_WritePin(PEAK_DET_RST_GPIO_Port, PEAK_DET_RST_Pin,0);
+	//HAL_GPIO_TogglePin(DEBUG_1_GPIO_Port,DEBUG_1_Pin);
 
+}
+
+static void MX_NVIC_Init(void)
+{
+  /* EXTI0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+}
 /* USER CODE END 0 */
 
 /**
@@ -123,12 +148,16 @@ int main(void)
   MX_TIM8_Init();
   MX_ADC1_Init();
   MX_TIM3_Init();
+  MX_TIM7_Init();
   /* USER CODE BEGIN 2 */
 
+  MX_NVIC_Init();
   lv_init();
   lv_port_disp_init();
   ui_init();
   ui_controller_init();
+  HAL_TIM_Base_Start(&htim7);
+
   unsigned int cntr = 0;
   uint16_t height = 0;
   /* USER CODE END 2 */
@@ -145,8 +174,8 @@ int main(void)
 	  if (com_port_send_msg_interval == 0){
 		  com_port_send_msg_interval = SEND_MSG_INTERVAL_MS;
 
-		  height = height + 50;
-		  generate_spectrum(spectrum,height);
+		  //height = height + 50;
+		  //generate_spectrum(spectrum,height);
 
 		  uint16_t size = PrintToBuffer(spectrum,SPECTRUM_SIZE);
 		  StartVCPTransmission(size);
@@ -188,12 +217,10 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_HSI
-                              |RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48|RCC_OSCILLATORTYPE_LSI
+                              |RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.LSIDiv = RCC_LSI_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
