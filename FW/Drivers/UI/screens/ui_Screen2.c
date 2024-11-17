@@ -12,6 +12,9 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_style_bg_color(ui_Screen2, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Screen2, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    lv_obj_set_style_bg_color(ui_Screen2, lv_color_hex(0xFFFFFF), LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_Screen2, 255, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+
     ui_label5 = lv_label_create(ui_Screen2);
     lv_obj_set_width(ui_label5, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_label5, LV_SIZE_CONTENT);    /// 1
@@ -113,7 +116,6 @@ void ui_Screen2_screen_init(void)
     lv_obj_set_x(ui_time, 75);
     lv_obj_set_y(ui_time, -1);
     lv_obj_set_align(ui_time, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_time, "12:10");
 
     ui_Image3 = lv_img_create(ui_Navbar);
     lv_img_set_src(ui_Image3, &ui_img_187700891);

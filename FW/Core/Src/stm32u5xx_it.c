@@ -191,6 +191,9 @@ void SysTick_Handler(void)
   lv_tick_inc(1);
   if (HAL_GetTick() % 1000 == 0){
 	  HAL_GPIO_TogglePin(STAT_LED_GPIO_Port,STAT_LED_Pin);
+
+	  updateCPM();
+	  updateCPS();
   }
 
   if(com_port_send_msg_interval > 0){

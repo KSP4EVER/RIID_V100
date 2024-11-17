@@ -21,8 +21,8 @@ extern "C" {
 void ui_Screen1_screen_init(void);
 extern lv_obj_t * ui_Screen1;
 extern lv_obj_t * ui_Spinner1;
+extern lv_obj_t * ui_Image1;
 extern lv_obj_t * ui_Label2;
-extern lv_obj_t * ui_Image11;
 // CUSTOM VARIABLES
 
 // SCREEN: ui_Screen2

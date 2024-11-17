@@ -13,7 +13,7 @@
 #include "main.h"
 
 
-extern uint8_t UserTxBufferFS[48*1024];
+extern uint8_t UserTxBufferFS[80*1024];
 
 extern uint32_t UserTxBufPtrIn;
 extern uint32_t UserTxBufPtrOut;
@@ -24,7 +24,7 @@ enum com_state{
 	VCP_BUSY
 };
 
-uint32_t PrintToBuffer(uint16_t data[],uint16_t size);
+uint32_t PrintToBuffer(uint32_t data[],uint16_t size);
 void StartVCPTransmission(uint32_t bytes_to_transmit);
 
 #endif /* INC_COMMUNICATION_H_ */

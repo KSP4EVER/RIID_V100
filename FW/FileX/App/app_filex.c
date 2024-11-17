@@ -48,6 +48,8 @@
 FX_MEDIA        sdio_disk;
 FX_FILE         fx_file;
 
+extern uint8_t UserTxBufferFS[80*1024];
+
 uint32_t media_memory[4096 / sizeof(uint32_t)];
 /* USER CODE END PV */
 
@@ -128,7 +130,7 @@ VOID MX_FileX_Process(void)
   }
 
   /* Write a string to the test file.  */
-  status =  fx_file_write(&fx_file, data, sizeof(data));
+  status =  fx_file_write(&fx_file, UserTxBufferFS, 80*1024);
 
   /* Check the file write status.  */
   if (status != FX_SUCCESS)
@@ -156,57 +158,58 @@ VOID MX_FileX_Process(void)
     Error_Handler();
   }
 
-  /* Open the test file.  */
+  /*
+  // Open the test file.
   status =  fx_file_open(&sdio_disk, &fx_file, "STM32.TXT", FX_OPEN_FOR_READ);
 
-  /* Check the file open status.  */
+  // Check the file open status.
   if (status != FX_SUCCESS)
   {
-    /* Error opening file, call error handler.  */
+	// Error opening file, call error handler.
     Error_Handler();
   }
 
-  /* Seek to the beginning of the test file.  */
+  // Seek to the beginning of the test file.
   status =  fx_file_seek(&fx_file, 0);
 
-  /* Check the file seek status.  */
+  // Check the file seek status.
   if (status != FX_SUCCESS)
   {
-    /* Error performing file seek, call error handler.  */
+    // Error performing file seek, call error handler.
     Error_Handler();
   }
 
-  /* Read the first 28 bytes of the test file.  */
+  // Read the first 28 bytes of the test file.
   status =  fx_file_read(&fx_file, read_buffer, sizeof(data), &bytes_read);
 
-  /* Check the file read status.  */
+  // Check the file read status.
   if ((status != FX_SUCCESS) || (bytes_read != sizeof(data)))
   {
-    /* Error reading file, call error handler.  */
+    // Error reading file, call error handler.
     Error_Handler();
   }
 
-  /* Close the test file.  */
+  // Close the test file.
   status =  fx_file_close(&fx_file);
 
-  /* Check the file close status. */
+  // Check the file close status.
   if (status != FX_SUCCESS)
   {
-    /* Error closing the file, call error handler. */
+    // Error closing the file, call error handler.
     Error_Handler();
   }
 
-  /* Close the media.  */
+  // Close the media.
   status =  fx_media_close(&sdio_disk);
 
-  /* Check the media close status.  */
+  // Check the media close status.
   if (status != FX_SUCCESS)
   {
-    /* Error closing the media, call error handler.  */
+    // Error closing the media, call error handler.
     Error_Handler();
   }
 
-  /* Infinite loop */
+  */
 
 }
 /* USER CODE END 1 */

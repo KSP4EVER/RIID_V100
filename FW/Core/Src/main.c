@@ -24,6 +24,7 @@
 #include "app_filex.h"
 #include "i2c.h"
 #include "memorymap.h"
+#include "rtc.h"
 #include "sdmmc.h"
 #include "tim.h"
 #include "usart.h"
@@ -52,7 +53,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define DUMMY_SPECTRUM 1
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -65,7 +66,7 @@
 /* USER CODE BEGIN PV */
 extern struct _ui_data ui_data;
 
-extern uint16_t spectrum[SPECTRUM_SIZE];
+extern uint32_t spectrum[SPECTRUM_SIZE];
 
 volatile uint32_t com_port_send_msg_interval = SEND_MSG_INTERVAL_MS;
 /* USER CODE END PV */
@@ -78,25 +79,8 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void delay_us (uint16_t us)
-{
-	__HAL_TIM_SET_COUNTER(&htim7,0);  // set the counter value a 0
-	while (__HAL_TIM_GET_COUNTER(&htim7) < us);  // wait for the counter to reach the us input in the parameter
-}
-void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
-{
-	//HAL_GPIO_TogglePin(DEBUG_1_GPIO_Port,DEBUG_1_Pin);
-	delay_us(1);
-	HAL_ADC_Start(&hadc1);
-	HAL_ADC_PollForConversion(&hadc1,5);
-	uint32_t DET_VALUE = HAL_ADC_GetValue(&hadc1);
-	HAL_GPIO_WritePin(PEAK_DET_RST_GPIO_Port, PEAK_DET_RST_Pin,1);
-	spectrum[DET_VALUE]++;
-	delay_us(1);
-	HAL_GPIO_WritePin(PEAK_DET_RST_GPIO_Port, PEAK_DET_RST_Pin,0);
-	//HAL_GPIO_TogglePin(DEBUG_1_GPIO_Port,DEBUG_1_Pin);
 
-}
+
 
 static void MX_NVIC_Init(void)
 {
@@ -149,6 +133,8 @@ int main(void)
   MX_ADC1_Init();
   MX_TIM3_Init();
   MX_TIM7_Init();
+  MX_TIM4_Init();
+  MX_RTC_Init();
   /* USER CODE BEGIN 2 */
 
   MX_NVIC_Init();
@@ -156,6 +142,7 @@ int main(void)
   lv_port_disp_init();
   ui_init();
   ui_controller_init();
+  HAL_TIM_Base_Start(&htim4);
   HAL_TIM_Base_Start(&htim7);
 
   unsigned int cntr = 0;
@@ -174,9 +161,11 @@ int main(void)
 	  if (com_port_send_msg_interval == 0){
 		  com_port_send_msg_interval = SEND_MSG_INTERVAL_MS;
 
-		  //height = height + 50;
-		  //generate_spectrum(spectrum,height);
 
+		#if DUMMY_SPECTRUM
+		  height = height + 50;
+		  generate_spectrum(spectrum,height);
+		#endif
 		  uint16_t size = PrintToBuffer(spectrum,SPECTRUM_SIZE);
 		  StartVCPTransmission(size);
 	  }
@@ -188,6 +177,7 @@ int main(void)
 		ui_data.charge_lvl = a;
 		ui_data.charging = IsCharging();
 		SetDetectorVoltage(ui_data.detector_voltage);
+		compress_spectrum(spectrum,SPECTRUM_SIZE);
 		Select_Screen();
 		UpdateScreen();
 		UpdateData();

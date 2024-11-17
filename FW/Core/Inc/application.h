@@ -17,11 +17,14 @@
 #define BACKGROUND_LEVEL 5  // Background noise level
 
 
-
+void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin);
+void delay_us (uint16_t us);
+void updateCPS();
+void updateCPM();
 
 
 //functions for simulation purpose
 double gaussian(int x, int mean, double std_dev);
-void generate_spectrum(uint16_t*, uint16_t);
+void generate_spectrum(uint32_t*, uint32_t);
 
 #endif /* INC_APPLICATION_H_ */

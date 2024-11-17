@@ -20,6 +20,8 @@
 #define MAX_VOLUME 100
 #define MIN_VOLUME 0
 #define VOLUME_STEP 10
+#define CHART_LENGHT 180
+#define SEGMENT_SIZE 20
 
 enum button_control{
 	LEFT_BTN_CLICKED = 1,
@@ -58,12 +60,13 @@ struct _ui_data{
 
 extern TIM_HandleTypeDef htim3;
 
-static uint8_t current_ui_state = 0;
-static uint8_t input_state = 0;
+static uint8_t current_ui_state = SCREEN3;
+static volatile uint8_t input_state = 0;
 
 void Scan_Button_input(void);
 void Select_Screen(void);
 void UpdateScreen(void);
 void UpdateData(void);
 void ui_controller_init(void);
+void compress_spectrum(const uint32_t *input, uint16_t input_size);
 #endif /* INC_UI_CONTROLLER_H_ */

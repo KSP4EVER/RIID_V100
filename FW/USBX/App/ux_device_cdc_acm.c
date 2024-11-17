@@ -35,7 +35,7 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define APP_RX_DATA_SIZE                          2048
-#define APP_TX_DATA_SIZE                          48*1024
+#define APP_TX_DATA_SIZE                          80*1024
 
 /* Rx/TX flag */
 #define RX_NEW_RECEIVED_DATA                      0x01

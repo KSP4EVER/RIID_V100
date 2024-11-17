@@ -7,6 +7,10 @@
 #include "ui_controller.h"
 
 struct _ui_data ui_data;
+lv_chart_series_t * ui_Chart1_spectrum;
+static lv_coord_t ui_Chart1_spectrum_array[CHART_LENGHT] = {0};
+extern uint32_t spectrum[];
+
 
 void Scan_Button_input(void){
 
@@ -47,6 +51,7 @@ void Select_Screen(void){
 	case SCREEN3_SAVE_DATA_SELECT:
 		if(input_state == OK_BTN_CLICKED){
 			//save spectrum here
+			MX_FileX_Process();
 		}
 
 		if(input_state == DOWN_BTN_CLICKED){
@@ -59,7 +64,7 @@ void Select_Screen(void){
 
 	case SCREEN3_CLEAR_DATA_SELECT:
 		if(input_state == OK_BTN_CLICKED){
-			//clear specturm here
+			for (int i = 0; i < 4096;i++) spectrum[i] = 0;
 		}
 		if(input_state == UP_BTN_CLICKED){
 			current_ui_state = SCREEN3_SAVE_DATA_SELECT;
@@ -238,15 +243,42 @@ void UpdateData(void){
 		lv_obj_set_style_bg_color(ui_stateofcharge, lv_color_hex(0x2ecc71), LV_PART_MAIN | LV_STATE_DEFAULT);
 	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	lv_label_set_text(ui_time, ui_data.time);
+	lv_label_set_text(ui_time, "22:13");
 
+	//SCREEN2 Update data/////////////////////////////////////////////////////////////////////////////////////////////
 	if(current_ui_state == SCREEN2){
+		char cps_text[6];
+		char cpm_text[6];
 
+
+
+		snprintf(cps_text,6, "%d",ui_data.cps);
+		sprintf(cpm_text, "%d",ui_data.cpm);
+
+		lv_label_set_text(ui_cps, cps_text);
+		lv_label_set_text(ui_cpm, cpm_text);
 	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	//SCREEN3 Update data//////////////////////////////////////////////////////////////////////////////////////////////
 	else if((current_ui_state == SCREEN3) || (current_ui_state == SCREEN3_SAVE_DATA_SELECT) || (current_ui_state == SCREEN3_CLEAR_DATA_SELECT)){
+		//ui_Chart1_series_1_array
 
+
+		//set range rounded up to the nearest x000 value example max = 2125 -> range = 3000
+		uint32_t max = 0;
+		for (int i = 0; i < CHART_LENGHT;i++){
+			if(max < (uint32_t)ui_Chart1_spectrum_array[i])max = (uint32_t)ui_Chart1_spectrum_array[i];
+		}
+
+		lv_chart_set_range(ui_Chart1, LV_CHART_AXIS_PRIMARY_Y, 0, (1 + (max - max%1000)/1000)*1000);
+
+		lv_chart_set_ext_y_array(ui_Chart1, ui_Chart1_spectrum, ui_Chart1_spectrum_array);
+		lv_chart_refresh(ui_Chart1);
 	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+	//SCREEN4 Update data//////////////////////////////////////////////////////////////////////////////////////////////
 	else if((current_ui_state == SCREEN4)||(current_ui_state == SCREEN4_BRIGHTNESS_SELECT)||(current_ui_state == SCREEN4_DET_VOLTAGE_SELECT) || (current_ui_state == SCREEN4_VOLUME_SELECT)){
 		lv_bar_set_value(ui_lcdbrightnessbar, (uint32_t)ui_data.brightness, LV_ANIM_OFF);
 		lv_bar_set_value(ui_beepvolumebar, (uint32_t)ui_data.volume, LV_ANIM_OFF);
@@ -256,6 +288,8 @@ void UpdateData(void){
 		sprintf(detvoltage_text,"%d mV",ui_data.detector_voltage);
 		lv_label_set_text(ui_detvoltage, detvoltage_text);
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 
@@ -273,5 +307,15 @@ void ui_controller_init(){
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 	htim3.Instance->CCR2 = ui_data.brightness;
 
-}
+	ui_Chart1_spectrum = lv_chart_add_series(ui_Chart1, lv_color_hex(0xFF0000),LV_CHART_AXIS_PRIMARY_Y);
 
+}
+void compress_spectrum(const uint32_t *input, uint16_t size){
+	for(int i = 0; i < CHART_LENGHT;i++){
+		 uint32_t sum = 0;
+		 for (int j = 0; j < SEGMENT_SIZE; j++) {
+			 sum += input[i * SEGMENT_SIZE + j];
+		 }
+		 ui_Chart1_spectrum_array[i] = (lv_coord_t)(sum / SEGMENT_SIZE);
+	}
+}

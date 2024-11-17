@@ -475,7 +475,27 @@
           },
           {
             "part": "lv.PART.MAIN",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": -938848028,
             "strtype": "SCREEN/Style_main",
             "strval": "lv.PART.MAIN, Rectangle, Pad, Text",
@@ -1699,17 +1719,17 @@
                     "strtype": "OBJECT/Position",
                     "intarray": [
                       -92,
-                      0
+                      2
                     ],
                     "InheritedType": 7
                   },
                   {
                     "nid": 60,
-                    "flags": 51,
+                    "flags": 17,
                     "strtype": "OBJECT/Size",
                     "intarray": [
-                      1,
-                      1
+                      25,
+                      20
                     ],
                     "InheritedType": 7
                   },
@@ -1774,6 +1794,12 @@
                         "strtype": "_style/StyleState",
                         "strval": "DEFAULT",
                         "childs": [
+                          {
+                            "nid": 10430,
+                            "strtype": "_style/Text_Align",
+                            "strval": "CENTER",
+                            "InheritedType": 3
+                          },
                           {
                             "nid": 10520,
                             "strtype": "_style/Bg_Color",
@@ -2421,7 +2447,27 @@
           },
           {
             "part": "lv.PART.MAIN",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": -1201848120,
             "strtype": "SCREEN/Style_main",
             "strval": "lv.PART.MAIN, Rectangle, Pad, Text",
@@ -2578,8 +2624,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Position",
                 "intarray": [
-                  16,
-                  -46
+                  25,
+                  -36
                 ],
                 "InheritedType": 7
               },
@@ -2588,8 +2634,8 @@
                 "flags": 17,
                 "strtype": "OBJECT/Size",
                 "intarray": [
-                  186,
-                  151
+                  190,
+                  180
                 ],
                 "InheritedType": 7
               },
@@ -2660,7 +2706,6 @@
               },
               {
                 "nid": -1526921202,
-                "flags": 1048576,
                 "strtype": "CHART/X_Axis",
                 "InheritedType": 1
               },
@@ -2668,8 +2713,8 @@
                 "nid": 1731285324,
                 "strtype": "CHART/XMajor",
                 "intarray": [
-                  10,
-                  5
+                  5,
+                  4
                 ],
                 "InheritedType": 7
               },
@@ -2678,7 +2723,7 @@
                 "strtype": "CHART/XMinor",
                 "intarray": [
                   5,
-                  2
+                  5
                 ],
                 "InheritedType": 7
               },
@@ -2705,7 +2750,7 @@
                 "strtype": "CHART/Primary_Y_range",
                 "intarray": [
                   0,
-                  100
+                  1000
                 ],
                 "InheritedType": 7
               },
@@ -2713,7 +2758,7 @@
                 "nid": -705768658,
                 "strtype": "CHART/PrimaryYMajor",
                 "intarray": [
-                  10,
+                  5,
                   5
                 ],
                 "InheritedType": 7
@@ -2723,7 +2768,7 @@
                 "strtype": "CHART/PrimaryYMinor",
                 "intarray": [
                   5,
-                  2
+                  4
                 ],
                 "InheritedType": 7
               },
@@ -2792,7 +2837,7 @@
               {
                 "nid": 1608839244,
                 "strtype": "CHART/ChartData",
-                "strval": "[{\"Axis\":0,\"Color\":[255,0,0,255],\"Series\":[0,10,20,40,80,80,40,20,10,0]}]",
+                "strval": "[]",
                 "InheritedType": 12
               },
               {
@@ -2879,7 +2924,7 @@
                 "strtype": "OBJECT/Position",
                 "intarray": [
                   0,
-                  80
+                  100
                 ],
                 "InheritedType": 7
               },
@@ -2889,7 +2934,7 @@
                 "strtype": "OBJECT/Size",
                 "intarray": [
                   160,
-                  40
+                  30
                 ],
                 "InheritedType": 7
               },
@@ -3023,7 +3068,7 @@
                 "strtype": "OBJECT/Position",
                 "intarray": [
                   0,
-                  130
+                  140
                 ],
                 "InheritedType": 7
               },
@@ -3033,7 +3078,7 @@
                 "strtype": "OBJECT/Size",
                 "intarray": [
                   160,
-                  40
+                  30
                 ],
                 "InheritedType": 7
               },
@@ -3177,7 +3222,7 @@
                 "strtype": "OBJECT/Position",
                 "intarray": [
                   3,
-                  80
+                  100
                 ],
                 "InheritedType": 7
               },
@@ -3302,7 +3347,7 @@
                 "strtype": "OBJECT/Position",
                 "intarray": [
                   0,
-                  132
+                  140
                 ],
                 "InheritedType": 7
               },
@@ -3465,7 +3510,27 @@
           },
           {
             "part": "lv.PART.MAIN",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": 96409367,
             "strtype": "SCREEN/Style_main",
             "strval": "lv.PART.MAIN, Rectangle, Pad, Text",
@@ -4578,7 +4643,27 @@
           },
           {
             "part": "lv.PART.MAIN",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": 492115417,
             "strtype": "SCREEN/Style_main",
             "strval": "lv.PART.MAIN, Rectangle, Pad, Text",
@@ -4948,7 +5033,27 @@
           },
           {
             "part": "lv.PART.MAIN",
-            "childs": [],
+            "childs": [
+              {
+                "nid": 10000,
+                "strtype": "_style/StyleState",
+                "strval": "DEFAULT",
+                "childs": [
+                  {
+                    "nid": 10520,
+                    "strtype": "_style/Bg_Color",
+                    "intarray": [
+                      255,
+                      255,
+                      255,
+                      255
+                    ],
+                    "InheritedType": 7
+                  }
+                ],
+                "InheritedType": 1
+              }
+            ],
             "nid": -1651319504,
             "strtype": "SCREEN/Style_main",
             "strval": "lv.PART.MAIN, Rectangle, Pad, Text",
@@ -5027,7 +5132,7 @@
     "uiExportFolderPath": "E:\\RIID_V100\\FW\\Drivers\\UI",
     "projectExportFolderPath": "E:\\RIID_V100\\FW\\Drivers\\UI",
     "custom_variable_prefix": "uic",
-    "backup_cnt": 26,
+    "backup_cnt": 31,
     "autosave_cnt": 0,
     "lvgl_version": "8.3.6",
     "callfuncsexport": "C_FILE",

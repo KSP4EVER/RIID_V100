@@ -13,8 +13,8 @@
 void ui_Screen1_screen_init(void);
 lv_obj_t * ui_Screen1;
 lv_obj_t * ui_Spinner1;
+lv_obj_t * ui_Image1;
 lv_obj_t * ui_Label2;
-lv_obj_t * ui_Image11;
 // CUSTOM VARIABLES
 
 

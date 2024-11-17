@@ -12,6 +12,9 @@ void ui_Screen5_screen_init(void)
     lv_obj_set_style_bg_color(ui_Screen5, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_Screen5, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    lv_obj_set_style_bg_color(ui_Screen5, lv_color_hex(0xFFFFFF), LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_Screen5, 255, LV_PART_SCROLLBAR | LV_STATE_DEFAULT);
+
     ui_Label16 = lv_label_create(ui_Screen5);
     lv_obj_set_width(ui_Label16, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_Label16, LV_SIZE_CONTENT);    /// 1
