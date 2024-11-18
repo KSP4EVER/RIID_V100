@@ -23,8 +23,13 @@
 #define CHART_LENGHT 180
 #define SEGMENT_SIZE 20
 
+#define DEBOUNCE_INTERVAL_MS 500
+#define DISP_REFRESH_INTERVAL_MS 200
+#define SOC_REFRESH_INTERVAL_MS 30000
+
 enum button_control{
-	LEFT_BTN_CLICKED = 1,
+	NO_BTN_CLICKED,
+	LEFT_BTN_CLICKED,
 	RIGHT_BTN_CLICKED,
 	OK_BTN_CLICKED,
 	RETURN_BTN_CLICKED,
@@ -60,10 +65,10 @@ struct _ui_data{
 
 extern TIM_HandleTypeDef htim3;
 
-static uint8_t current_ui_state = SCREEN3;
+static volatile uint8_t current_ui_state = SCREEN3;
 static volatile uint8_t input_state = 0;
 
-void Scan_Button_input(void);
+uint16_t Scan_Button_input(void);
 void Select_Screen(void);
 void UpdateScreen(void);
 void UpdateData(void);

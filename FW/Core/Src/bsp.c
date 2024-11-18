@@ -39,12 +39,17 @@ double cell_voltage_lut[] = {
 
 double Measure_Cell_Voltage(void){
 	//select the correct a/d channel
+	uint32_t adc_value = 0;
 
-	HAL_ADC_Start(&hadc4);
-	HAL_ADC_PollForConversion(&hadc4, 1);
+	for(int i = 0;i < 10;i++){
+		HAL_ADC_Start(&hadc4);
+		HAL_ADC_PollForConversion(&hadc4, 1);
 
-	uint32_t adc_value = HAL_ADC_GetValue(&hadc4);
-	HAL_ADC_Stop(&hadc4);
+		adc_value = adc_value + HAL_ADC_GetValue(&hadc4);
+		HAL_ADC_Stop(&hadc4);
+	}
+
+	adc_value = adc_value / 10;
 
 	return ((double)adc_value/AD_12BIT_RES*AD_REF_VOLTAGE)/CELL_VOLTAGE_DIVIDER;
 

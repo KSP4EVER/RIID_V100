@@ -12,7 +12,40 @@ static lv_coord_t ui_Chart1_spectrum_array[CHART_LENGHT] = {0};
 extern uint32_t spectrum[];
 
 
-void Scan_Button_input(void){
+uint16_t Scan_Button_input(void){
+
+	if (HAL_GPIO_ReadPin(BUTTON_0_GPIO_Port, BUTTON_0_Pin) == GPIO_PIN_RESET) {
+		input_state = RETURN_BTN_CLICKED;
+		return DEBOUNCE_INTERVAL_MS;
+	}
+	else if (HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin) == GPIO_PIN_RESET) {
+		input_state = NO_BTN_CLICKED;
+		return DEBOUNCE_INTERVAL_MS;
+	}
+	else if (HAL_GPIO_ReadPin(BUTTON_2_GPIO_Port, BUTTON_2_Pin) == GPIO_PIN_RESET) {
+		input_state = DOWN_BTN_CLICKED;
+		return DEBOUNCE_INTERVAL_MS;
+	}
+	else if (HAL_GPIO_ReadPin(BUTTON_3_GPIO_Port, BUTTON_3_Pin) == GPIO_PIN_RESET) {
+		input_state = RIGHT_BTN_CLICKED;
+		return DEBOUNCE_INTERVAL_MS;
+	}
+	else if (HAL_GPIO_ReadPin(BUTTON_4_GPIO_Port, BUTTON_4_Pin) == GPIO_PIN_RESET) {
+		input_state = LEFT_BTN_CLICKED;
+		return DEBOUNCE_INTERVAL_MS;
+	}
+	else if (HAL_GPIO_ReadPin(BUTTON_5_GPIO_Port, BUTTON_5_Pin) == GPIO_PIN_RESET) {
+		input_state = OK_BTN_CLICKED;
+		return DEBOUNCE_INTERVAL_MS;
+	}
+	else if (HAL_GPIO_ReadPin(BUTTON_6_GPIO_Port, BUTTON_6_Pin) == GPIO_PIN_RESET) {
+		input_state = UP_BTN_CLICKED;
+	}
+	else if (HAL_GPIO_ReadPin(BUTTON_7_GPIO_Port, BUTTON_7_Pin) == GPIO_PIN_RESET) {
+		input_state = NO_BTN_CLICKED;
+	}
+	//no button clicked no debounce waiting needed
+	else return 0;
 
 }
 void Select_Screen(void){
@@ -154,6 +187,7 @@ void Select_Screen(void){
 		break;
 	////////////////////////////////////////////////////////
 	}
+	input_state = NO_BTN_CLICKED;
 
 }
 void UpdateScreen(void){

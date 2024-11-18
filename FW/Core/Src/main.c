@@ -69,6 +69,8 @@ extern struct _ui_data ui_data;
 extern uint32_t spectrum[SPECTRUM_SIZE];
 
 volatile uint32_t com_port_send_msg_interval = SEND_MSG_INTERVAL_MS;
+volatile uint32_t display_refresh_interval = DISP_REFRESH_INTERVAL_MS;
+volatile uint32_t soc_refresh_interval = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -154,6 +156,7 @@ int main(void)
   while (1)
   {
 	  MX_USBX_Device_Process(NULL);
+	  lv_timer_handler();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -170,18 +173,23 @@ int main(void)
 		  StartVCPTransmission(size);
 	  }
 
-	  lv_timer_handler();
-	  cntr++;
-	  if (cntr%100 == 0){
-		  uint8_t a =  CalculateSOC();
-		ui_data.charge_lvl = a;
-		ui_data.charging = IsCharging();
-		SetDetectorVoltage(ui_data.detector_voltage);
-		compress_spectrum(spectrum,SPECTRUM_SIZE);
-		Select_Screen();
-		UpdateScreen();
-		UpdateData();
+	  if (soc_refresh_interval == 0){
+		  soc_refresh_interval = SOC_REFRESH_INTERVAL_MS;
+		  ui_data.charge_lvl = CalculateSOC();
 	  }
+
+	  if (display_refresh_interval == 0){
+		  display_refresh_interval = DISP_REFRESH_INTERVAL_MS;
+
+		  ui_data.charging = IsCharging();
+		  SetDetectorVoltage(ui_data.detector_voltage);
+		  compress_spectrum(spectrum,SPECTRUM_SIZE);
+		  Select_Screen();
+		  UpdateScreen();
+		  UpdateData();
+	  }
+
+
 
 
 

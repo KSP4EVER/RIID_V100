@@ -22,6 +22,7 @@
 #include "stm32u5xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -59,6 +60,10 @@ extern SD_HandleTypeDef hsd1;
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 /* USER CODE BEGIN EV */
 extern volatile uint32_t com_port_send_msg_interval;
+extern volatile uint32_t display_refresh_interval;
+extern volatile uint32_t soc_refresh_interval;
+
+volatile uint32_t button_debounce_timer = 0;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -198,6 +203,22 @@ void SysTick_Handler(void)
 
   if(com_port_send_msg_interval > 0){
 	  com_port_send_msg_interval--;
+  }
+
+  if (display_refresh_interval > 0){
+	  display_refresh_interval--;
+  }
+
+  if (soc_refresh_interval > 0){
+	  soc_refresh_interval--;
+  }
+
+
+  if (button_debounce_timer == 0 ){
+	  button_debounce_timer = Scan_Button_input();
+  }
+  else {
+	  button_debounce_timer--;
   }
 
   /* USER CODE END SysTick_IRQn 1 */
