@@ -166,8 +166,8 @@ int main(void)
 
 
 		#if DUMMY_SPECTRUM
-		  height = height + 50;
-		  generate_spectrum(spectrum,height);
+		 // height = height + 50;
+		 // generate_spectrum(spectrum,height);
 		#endif
 		  uint16_t size = PrintToBuffer(spectrum,SPECTRUM_SIZE);
 		  StartVCPTransmission(size);
