@@ -65,7 +65,7 @@ struct _ui_data{
 
 extern TIM_HandleTypeDef htim3;
 
-static volatile uint8_t current_ui_state = SCREEN3;
+static volatile uint8_t current_ui_state = SCREEN2;
 static volatile uint8_t input_state = 0;
 
 uint16_t Scan_Button_input(void);

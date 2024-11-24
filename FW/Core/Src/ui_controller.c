@@ -333,7 +333,7 @@ void ui_controller_init(){
 	ui_data.volume = 50;
 	ui_data.cpm = 0;
 	ui_data.cps = 0;
-	ui_data.detector_voltage = 26500;
+	ui_data.detector_voltage = 29000;
 	ui_data.dose = 0.0;
 	ui_data.charge_lvl = 0;
 	ui_data.charging = 0;

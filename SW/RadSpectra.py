@@ -23,13 +23,13 @@ def updatePlot():
     global data_buffer
     plt.ion()  # Turn on interactive mode
     fig, ax = plt.subplots()
-    line, = ax.plot([], [], '-k')  # Create a line plot
+    line, = ax.plot([], [], '-k')  
 
     ax.set_xlim(0, buffer_size - 1)
     ax.set_ylim(0, 500)  # Set the expected range of the data (adjust as needed)
-    ax.set_title("Serial Data Plot")
+    ax.set_title("Spectrum Plot")
     ax.set_xlabel("Channel Number")
-    ax.set_ylabel("Value")
+    ax.set_ylabel("Counts")
     ax.set_ylim(1, 1e6)
     plt.grid(True)
     plt.minorticks_on()
@@ -82,17 +82,21 @@ def SerialCom():
                 try:
                     #split the data and convert to int--------------------------
                     index_s, value_s = data.split(":")
- 
-                    index = int(re.findall(r'\d+\.?\d*', index_s)[0])
-                    value = int(re.findall(r'\d+\.?\d*', value_s)[0])
-                    if(index < buffer_size):
-                        data_buffer[index] = value
-                    
+                    #print(f"{data},{index_s},{value_s}")
+                    if index_s != "" or value_s != "":
+                        #index = int(re.findall(r'\d+\.?\d*', index_s)[0])
+                        #value = int(re.findall(r'\d+\.?\d*', value_s)[0])
+                        index = int(index_s)
+                        value = int(value_s)
+                        if(index < buffer_size):
+                            data_buffer[index] = value
+                    else:
+                        print("error")
                     #if all packets are received signal to update the graph and to the CLI
                     if  index == buffer_size-1 :
                         local_time = time.localtime()
                         formatted_time = time.strftime("%H:%M:%S", local_time)
-                        print(f"[{formatted_time}] Received {index + 1} packets...   Delta Counts= {sum(data_buffer)-prev_sum}")
+                        print(f"[{formatted_time}] Received {index + 1} packets...   Delta Counts= {sum(data_buffer)-prev_sum}  SUM:{sum(data_buffer)}")
                         prev_sum = sum(data_buffer)
                         data_ready_event.set()
 

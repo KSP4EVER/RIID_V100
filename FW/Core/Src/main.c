@@ -169,7 +169,7 @@ int main(void)
 		 // height = height + 50;
 		 // generate_spectrum(spectrum,height);
 		#endif
-		  uint16_t size = PrintToBuffer(spectrum,SPECTRUM_SIZE);
+		  uint32_t size = PrintToBuffer(spectrum,SPECTRUM_SIZE);
 		  StartVCPTransmission(size);
 	  }
 
