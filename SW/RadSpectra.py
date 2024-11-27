@@ -96,7 +96,7 @@ def SerialCom():
                     if  index == buffer_size-1 :
                         local_time = time.localtime()
                         formatted_time = time.strftime("%H:%M:%S", local_time)
-                        print(f"[{formatted_time}] Received {index + 1} packets...   Delta Counts= {sum(data_buffer)-prev_sum}  SUM:{sum(data_buffer)}")
+                        print(f"[{formatted_time}] Received {index + 1} packets...   Delta Count= {sum(data_buffer)-prev_sum}  Sum:{sum(data_buffer)}")
                         prev_sum = sum(data_buffer)
                         data_ready_event.set()
 
