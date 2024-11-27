@@ -20,13 +20,18 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
 #if !DUMMY_SPECTRUM
 	//HAL_GPIO_TogglePin(DEBUG_1_GPIO_Port,DEBUG_1_Pin);
-	delay_us(10);
-	HAL_ADC_Start(&hadc1);
-	HAL_ADC_PollForConversion(&hadc1,5);
-	uint32_t DET_VALUE = HAL_ADC_GetValue(&hadc1);
-	HAL_GPIO_WritePin(PEAK_DET_RST_GPIO_Port, PEAK_DET_RST_Pin,1);
+	delay_us(5);
+	uint32_t DET_VALUE = 0;
+	for(int i = 0;i < 5;i++){
+		HAL_ADC_Start(&hadc1);
+		HAL_ADC_PollForConversion(&hadc1,5);
+		DET_VALUE = DET_VALUE + HAL_ADC_GetValue(&hadc1);
+		HAL_ADC_Stop(&hadc1);
+	//HAL_GPIO_WritePin(PEAK_DET_RST_GPIO_Port, PEAK_DET_RST_Pin,1);
+	}
+	DET_VALUE = DET_VALUE / 5;
 	spectrum[DET_VALUE]++;
-	delay_us(10);
+	delay_us(5);
 	HAL_GPIO_WritePin(PEAK_DET_RST_GPIO_Port, PEAK_DET_RST_Pin,0);
 	//HAL_GPIO_TogglePin(DEBUG_1_GPIO_Port,DEBUG_1_Pin);
 #endif
