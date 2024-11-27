@@ -2,11 +2,11 @@
 % Replace this with your actual spectrum data
 x = linspace(0, 4096, 4096); % Energy levels (e.g., channel numbers)
 %y = exp(-0.001*x) .* sin(0.05*x) + rand(1, 1000) * 0.1; % Simulated spectrum with noise
-y = uxx';
+y = th232';
 % Parameters for peak detection
-minPeakHeight = 10;   % Minimum height of peaks
-minPeakDistance = 200;  % Minimum distance between peaks (in indices)
-smoothingWindow = 200;   % Size of the moving average window
+minPeakHeight = 80;   % Minimum height of peaks
+minPeakDistance = 10;  % Minimum distance between peaks (in indices)
+smoothingWindow = 5;   % Size of the moving average window
 
 % Smoothing the data
 y_smoothed = movmean(y, smoothingWindow);
